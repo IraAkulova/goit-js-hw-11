@@ -57,7 +57,8 @@ async function createMarkup(imgs) {
         </div>
         </div>`;})
                 .join('');
-        if (array === []) {
+        if (array.length === 0) {
+            refs.divGallaryEl.innerHTML = '';
             Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`)
         } else {
             renderMarkUp(string);
@@ -67,15 +68,7 @@ async function createMarkup(imgs) {
     }
 };
 
-async function renderMarkUp(markUp) {
-    refs.divGallaryEl.innerHTML = await markUp;
+function renderMarkUp(markUp) {
+    refs.divGallaryEl.innerHTML = markUp;
 };
 
-// function renderMarkup(country) {
-//     if (array === []) {
-//             console.log('array is empty');
-//             Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`)
-//         } else {
-//         refs.divGallaryEl.innerHTML = await markUp;
-//     }
-// };

@@ -1,2 +1,26 @@
 @import './common';
 @import './example';
+
+body{
+    background-color: beige;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+
+    background-color: steelblue;
+}
+
+input{
+    width: 300px;
+    height: 35px;
+}
+
+button{
+    width: 70px;
+    height: 35px;
+}

@@ -31,10 +31,10 @@ async function fetchQuery(query) {
     refs.divGallaryEl.insertAdjacentHTML('beforeend', createMarkup(imgs));
 };
 
-async function createMarkup(imgs) {
-    try {const array = await imgs.data.hits;
+ function createMarkup(imgs) {
+    try {const array = imgs.data.hits;
         console.log(imgs);
-        const string = await array
+        const string = array
                 .map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads,
                     }) => {return `<div class="photo-card">
         <a href="${largeImageURL}">

@@ -20,7 +20,30 @@ input{
     height: 35px;
 }
 
-button{
+.search-btn{
     width: 70px;
     height: 35px;
+}
+
+.more{
+    display: flex;
+    justify-content: center;
+    padding-top: 7px;
+}
+
+.more-btn{
+    width: 170px;
+    height: 35px;
+}
+
+.image{
+    width: 300px;
+    height: auto;
+}
+
+.gallery{
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
 }

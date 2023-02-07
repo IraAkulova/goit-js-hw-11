@@ -9,13 +9,15 @@ import 'notiflix/dist/notiflix-3.2.6.min.css';
 const refs = {
   formEl: document.querySelector('.search-form'),
   inputEl: document.querySelector('input'),
-  btnEl: document.querySelector('button'),
+  btnEl: document.querySelector('.more'),
   divGallaryEl: document.querySelector('.gallery'),
 };
 const KEY = '33290430-0314363842258507589316bae';
 const BASE_URL = 'https://pixabay.com/api';
+let page = 0;
 
 refs.formEl.addEventListener('submit', onFormSubmit);
+refs.btnEl.addEventListener('click', onFormSubmit)
 
 function onFormSubmit(e) {
     e.preventDefault();
@@ -24,8 +26,9 @@ function onFormSubmit(e) {
 }
 
 async function fetchQuery(query) {
-    const imgs = await axios.get(`${BASE_URL}/?key=${KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`);
-    refs.divGallaryEl.innerHTML = createMarkup(imgs);
+    page += 1;
+    const imgs = await axios.get(`${BASE_URL}/?key=${KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`);
+    refs.divGallaryEl.insertAdjacentHTML('beforeend', createMarkup(imgs));
 };
 
 async function createMarkup(imgs) {
@@ -35,7 +38,7 @@ async function createMarkup(imgs) {
                 .map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads,
                     }) => {return `<div class="photo-card">
         <a href="${largeImageURL}">
-        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+        <img src="${webformatURL}" alt="${tags}" class="image" loading="lazy" />
         </a>
         <div class="info">
         <p class="info-item">
@@ -69,6 +72,11 @@ async function createMarkup(imgs) {
 };
 
 function renderMarkUp(markUp) {
-    refs.divGallaryEl.innerHTML = markUp;
+    refs.divGallaryEl.insertAdjacentHTML('beforeend', markUp);
 };
 
+const lightbox = new SimpleLightbox('.gallery a', {
+    captions: true,
+    captionsData: 'alt',
+    captionDelay: 250,
+});

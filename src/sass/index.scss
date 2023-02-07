@@ -31,19 +31,30 @@ input{
     padding-top: 7px;
 }
 
-.more-btn{
+.load-more{
+    display: none;
     width: 170px;
     height: 35px;
 }
 
+.btn-is-shown{
+    display: block;
+}
+
 .image{
-    width: 300px;
+    width: 100%;
     height: auto;
+}
+
+.photo-card{
+    width: 320px;
+    height: 370px;
+    border-bottom: 1px solid gray;
 }
 
 .gallery{
     display: flex;
     flex-wrap: wrap;
-
     gap: 10px;
+    margin: 10px;
 }

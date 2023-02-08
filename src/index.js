@@ -33,34 +33,25 @@ function onFormSubmit(e) {
     fetchQuery(searchQuery);
     if (page >= 0) {
         refs.btnEl.classList.add('btn-is-shown')
-    };
-   
+    };   
 }
 
 async function fetchQuery(query) {
     page += 1;
     const imgs = await axios.get(`${BASE_URL}/?key=${KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}&page=${page}`);
     refs.divGallaryEl.insertAdjacentHTML('beforeend', createMarkup(imgs));
-
-//     const { height: cardHeight } = document
-//   .querySelector(".gallery")
-//   .firstElementChild.getBoundingClientRect();
-
-// window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: "smooth",
-// });
 };
 
- function createMarkup(imgs) {
-    try {const array = imgs.data.hits;
-        console.log(imgs);
-        const string = array
+function createMarkup(imgs) {
+    const array = imgs.data.hits;
+             const string = array
                 .map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads,
-                    }) => {return `<div class="photo-card">
+                }) => {
+                    return `<div class="photo-card">
+        <div class="photo">
         <a href="${largeImageURL}">
         <img src="${webformatURL}" alt="${tags}" class="image" loading="lazy" />
-        </a>
+        </a></div>
         <div class="info">
         <p class="info-item">
             <b>Likes</b>
@@ -88,16 +79,13 @@ async function fetchQuery(query) {
             Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`);
         } else {
             renderMarkUp(string);
-        }
-    } catch (error) {
-        console.log(error);
-    };
-    
+        } 
 };
 
 function renderMarkUp(markUp) {
     refs.divGallaryEl.insertAdjacentHTML('beforeend', markUp);
-    new SimpleLightbox('.gallery a');
+    
+    new SimpleLightbox('.gallery a').refresh();
 };
 
 function onInputChange(e) {

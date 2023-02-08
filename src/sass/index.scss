@@ -41,15 +41,24 @@ input{
     display: block;
 }
 
+.photo{
+    width: 320px;
+    height: 220px;
+}
+
 .image{
+    display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
 }
 
 .photo-card{
     width: 320px;
-    height: 370px;
-    border-bottom: 1px solid gray;
+    height: 300px;
+    // border-bottom: 1px solid lightgray;
+    border-radius: 4px;
+    box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
 .gallery{
@@ -57,4 +66,13 @@ input{
     flex-wrap: wrap;
     gap: 10px;
     margin: 10px;
+}
+
+.info{
+    display: flex;
+}
+
+.info-item{
+    text-align: center;
+    line-height: 1.5;
 }

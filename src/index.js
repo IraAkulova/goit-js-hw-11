@@ -6,11 +6,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 
-// import SmoothScroll from 'smooth-scroll';
-
-// const scroll = new SmoothScroll('a[href*="#"]');
-
-
 
 const refs = {
   formEl: document.querySelector('.search-form'),
@@ -23,17 +18,16 @@ const BASE_URL = 'https://pixabay.com/api';
 let page = 0;
 const perPage = 40;
 
+
 refs.formEl.addEventListener('submit', onFormSubmit);
 refs.btnEl.addEventListener('click', onFormSubmit);
 refs.inputEl.addEventListener('input', onInputChange);
+
 
 function onFormSubmit(e) {
     e.preventDefault();
     const searchQuery = refs.inputEl.value;
     fetchQuery(searchQuery);
-    if (page >= 0) {
-        refs.btnEl.classList.add('btn-is-shown')
-    };   
 }
 
 async function fetchQuery(query) {
@@ -44,33 +38,35 @@ async function fetchQuery(query) {
 
 function createMarkup(imgs) {
     const array = imgs.data.hits;
-             const string = array
-                .map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads,
-                }) => {
-                    return `<div class="photo-card">
-        <div class="photo">
-        <a href="${largeImageURL}">
-        <img src="${webformatURL}" alt="${tags}" class="image" loading="lazy" />
-        </a></div>
-        <div class="info">
-        <p class="info-item">
+    if (array.length > 0) {
+        refs.btnEl.classList.add('btn-is-shown')
+    };   
+    const string = array
+        .map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads,}) => {
+        return `<div class="photo-card">
+            <div class="photo">
+            <a href="${largeImageURL}">
+            <img src="${webformatURL}" alt="${tags}" class="image" loading="lazy" />
+            </a></div>
+            <div class="info">
+            <p class="info-item">
             <b>Likes</b>
             ${likes}
-        </p>
-        <p class="info-item">
+            </p>
+            <p class="info-item">
             <b>Views</b>
             ${views}
-        </p>
-        <p class="info-item">
+            </p>
+            <p class="info-item">
             <b>Comments</b>
             ${comments}
-        </p>
-        <p class="info-item">
+            </p>
+            <p class="info-item">
             <b>Downloads</b>
             ${downloads}
-        </p>
-        </div>
-        </div>`;})
+            </p>
+            </div>
+            </div>`;})
             .join('');
         if (array.length === 0) {
             refs.divGallaryEl.innerHTML = '';

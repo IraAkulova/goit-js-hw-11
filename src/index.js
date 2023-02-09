@@ -40,18 +40,11 @@ async function onFormSubmit(e) {
 }
 
 function onInputChange(e) {
-    if (e.currentTarget.value !== refs.inputEl.textContent) {
+    if (e.currentTarget.value !== refs.inputEl.textContent || e.currentTarget.value === '') {
         refs.divGallaryEl.innerHTML = '';
         page = 0;
         refs.btnEl.classList.remove('btn-is-shown');
     };
-    if (e.currentTarget.value === '') {
-        refs.divGallaryEl.innerHTML = '';
-        page = 0;
-        refs.btnEl.classList.remove('btn-is-shown');
-        refs.searchEl.setAttribute('disabled', '')
-        return;
-    }
     if (e.currentTarget.value !== '') {
         refs.searchEl.removeAttribute('disabled', '');
         return;

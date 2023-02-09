@@ -8,10 +8,11 @@ import 'notiflix/dist/notiflix-3.2.6.min.css';
 
 
 const refs = {
-  formEl: document.querySelector('.search-form'),
-  inputEl: document.querySelector('input'),
-  btnEl: document.querySelector('.load-more'),
-  divGallaryEl: document.querySelector('.gallery'),
+    formEl: document.querySelector('.search-form'),
+    inputEl: document.querySelector('input'),
+    searchEl: document.querySelector('.search-btn'),
+    btnEl: document.querySelector('.load-more'),
+    divGallaryEl: document.querySelector('.gallery'),
 };
 const KEY = '33290430-0314363842258507589316bae';
 const BASE_URL = 'https://pixabay.com/api';
@@ -39,11 +40,22 @@ async function onFormSubmit(e) {
 }
 
 function onInputChange(e) {
-    if (e.currentTarget.value !== refs.inputEl.textContent || e.currentTarget.value === '' ) {
+    if (e.currentTarget.value !== refs.inputEl.textContent) {
         refs.divGallaryEl.innerHTML = '';
         page = 0;
         refs.btnEl.classList.remove('btn-is-shown');
-    } 
+    };
+    if (e.currentTarget.value === '') {
+        refs.divGallaryEl.innerHTML = '';
+        page = 0;
+        refs.btnEl.classList.remove('btn-is-shown');
+        refs.searchEl.setAttribute('disabled', '')
+        return;
+    }
+    if (e.currentTarget.value !== '') {
+        refs.searchEl.removeAttribute('disabled', '');
+        return;
+    }
 };
 
 async function onLoadMoreBtnClick() {
